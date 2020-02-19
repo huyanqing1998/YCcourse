@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- bean详解 -->
+	<!-- 
+		id			bean对象标识
+		class		
+		scope		作用范围	{	singleton(默认，单例公用唯一一个)
+								prototype(原型，每次获取的bean都是一个新创建的bean)
+								request(请求期间获取的bean 唯一的)
+								session(会话期间获取的bean 唯一的)
+								global(全局与一种特殊的应用有关 )
+							}
+		depends-on	值：另一个bean的id。依赖属性，表示当前的bean必须依赖其他的bean
+		destroy-method 用于指定销毁方法，会在对象被销毁时执行，也就是容器关闭时
+		init-method	用于指定初始化方法，会在对象创建的时被执行，也就是容器启动时
+		lazy-init	默认请求下所有的对象都在容器启动时创建(所以容器启动很慢)，可通过该属性设置延迟加载，延迟到getBean时加载
+		primary		主要bean配置，同一类型的bean出现多次，必须设置该属性为为true
+		factory-method 设置工厂方法(动态和静态之分)，如果单独使用factory-method，那么就是静态工厂
+		factory-bean 值：另一个bean的id  factory-method + factory-bean = 动态工厂
+	
+	 -->
+	<bean id="user"							
+		  class="com.yc.mybatis.bean.User"
+		  scope="prototype"
+		  init-method="initA"
+		  destroy-method="close"	 
+		  lazy-init="true"
+		  primary="true"
+		  factory-method="create" 
+	></bean>  
+	
+	<bean id="user1" 
+		  class="com.yc.mybatis.bean.User"
+		  factory-method="create1" 
+		  factory-bean="user"
+	></bean>
+	
+	<!-- ================================================================== -->
+	
+	<!-- 向bean内set数据 -->
+	<!-- 
+		1.set方法注入
+		2.构造方法(构造器)注入
+		3.接口注入
+	 -->
+	<bean id="user2" class="com.yc.mybatis.bean.User">
+		<!-- 1.set方法注入 -->
+		<property name="id" value="1"></property>
+		<property name="username" value="武松"></property>
+	</bean>	
+	
+	<bean id="user3" class="com.yc.mybatis.bean.User">
+		<!-- 2.构造方法(构造器)注入 -->
+		<constructor-arg name="username" value="李逵" index="1"></constructor-arg>
+		<constructor-arg name="id" value="1" index="0"></constructor-arg>
+		<constructor-arg name="password" value="123" index="2"></constructor-arg>
+		
+		<property name="hall" ref="hall"></property>
+	</bean>
+	
+	<!-- ref 表示引用其他bean，写bean的id -->
+	<bean id="user4" class="com.yc.mybatis.bean.User">
+		<property name="hall" ref="hall"></property>
+	</bean>
+	<bean id="hall" class="com.yc.mybatis.bean.Hall">
+		<property name="name" value="小象"></property>
+	</bean>
+	
+	<!-- bean对象中放入list对象 -->
+	<bean id="cinema" class="com.yc.mybatis.bean.Cinema">
+		<property name="halls">
+			<list>
+				<bean class="com.yc.mybatis.bean.Hall">
+					<property name="name" value="红旗"></property>
+				</bean>
+				<bean class="com.yc.mybatis.bean.Hall">
+					<property name="name" value="万达"></property>
+				</bean>
+				<bean class="com.yc.mybatis.bean.Hall">
+					<property name="name" value="红色"></property>
+				</bean>
+				<bean class="com.yc.mybatis.bean.Hall">
+					<property name="name" value="进步"></property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+</beans>
