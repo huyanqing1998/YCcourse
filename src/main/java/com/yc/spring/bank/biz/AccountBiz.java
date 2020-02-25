@@ -1,7 +1,11 @@
 package com.yc.spring.bank.biz;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.spring.bank.bean.Account;
 import com.yc.spring.bank.bean.Record;
@@ -9,6 +13,19 @@ import com.yc.spring.bank.dao.AccountDao;
 import com.yc.spring.bank.dao.RecordDao;
 
 @Service
+/*
+ * 事务注解
+ * @Transactional(
+ * 			isolation = Isolation.DEFAULT , //隔离级别：4类 有关脏读、不可重复读和幻读
+ * 			propagation = Propagation.REQUIRED , //传播行为：7类
+ * 			readOnly = false , //只读事务
+ * 			timeout = 3000 , //事务超时设置，默认是不限时
+ * 			transactionManager = "其他的事务管理器" , //手动的设置事务管理器
+ * 			rollbackFor , //重点：Spring默认情况下只会在运行期异常出现时，执行回滚，那么如果你有其他的类型的异常要回滚事务，就必须设置该属性。
+ * 			noRollbackFor , //设置不回滚的异常类型
+ * )
+ */
+@Transactional
 public class AccountBiz {
 	
 	@Autowired
@@ -22,7 +39,14 @@ public class AccountBiz {
 	public void deposit(Account account) {
 		System.out.println("模拟存款业务！");
 		aDao.update(account);
-		rDao.insert(new Record());
+		Record r = new Record();
+		r.setAccountId(account.getId());
+		r.setMoney(account.getMoney());
+		
+		//运行期异常  测试事务
+		//int i = 1/0;
+		
+		rDao.insert(r);
 	}
 	
 	/**
@@ -43,6 +67,18 @@ public class AccountBiz {
 		aDao.update(account2);
 		rDao.insert(new Record());
 		rDao.insert(new Record());
+	}
+	
+	/**
+	 * 查询明细
+	 */
+	public List<Record> details(){
+		return new ArrayList<Record>();
+	}
+	
+	public List<Record> details1(){
+		int a = 1/0;
+		return new ArrayList<Record>();
 	}
 	
 }
