@@ -11,7 +11,12 @@
 <c:if test="${!empty msg }">
 	<font color="red">${msg}</font>
 </c:if>
-<form action="signin">
+<form action="sign">
+	username:<input name="username"/><br/>
+	password:<input name="password"/><br/>
+	<input type="submit"/><br/>
+</form>
+<form action="reg" method="post">
 	username:<input name="username"/><br/>
 	password:<input name="password"/><br/>
 	<input type="submit"/><br/>

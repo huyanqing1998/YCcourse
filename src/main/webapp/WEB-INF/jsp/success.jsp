@@ -8,9 +8,9 @@
 </head>
 <body>
 成功页面<br/>
-username:${user.username }<br/>
-password:${user.password }<br/>
-email:${user.email }<br/>
-phone:${user.phone }<br/>
+username:${loginedUser.username }<br/>
+password:${loginedUser.password }<br/>
+email:${loginedUser.email }<br/>
+phone:${loginedUser.phone }<br/>
 </body>
 </html>
