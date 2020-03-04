@@ -1,34 +1,29 @@
 package com.yc.favorite.biz;
 
-import org.apache.ibatis.session.SqlSession;
-
+import javax.annotation.Resource;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import com.yc.favorite.bean.Favorite;
 import com.yc.favorite.dao.FavoriteMapper;
 import com.yc.favorite.dao.TagMapper;
-import com.yc.favorite.util.MyBatisHelper;
 
+@Service
+@Transactional
 public class FavoriteBiz {
 
-	public void addFavorite(Favorite favorite) {
+	@Resource
+	private TagMapper tm;
+	@Resource
+	private FavoriteMapper fm;
 
-		SqlSession session = MyBatisHelper.openSession();
-		try {
-			TagMapper tm = session.getMapper(TagMapper.class);
-			FavoriteMapper fm = session.getMapper(FavoriteMapper.class);
-			fm.insert(favorite);
-			String[] tNames = favorite.getfTags().split("[；;，,\\s]");
-			for(String tName : tNames) {
-				int ret = tm.updateCount(tName);
-				if(ret == 0) {
-					tm.insert(tName);
-				}
+	public void addFavorite(Favorite favorite) {
+		fm.insert(favorite);
+		String[] tNames = favorite.getfTags().split("[；;，,\\s]");
+		for (String tName : tNames) {
+			int ret = tm.updateCount(tName);
+			if (ret == 0) {
+				tm.insert(tName);
 			}
-			session.commit();
-		} catch (RuntimeException e) {
-			session.rollback();
-			throw e;
-		} finally {
-			session.close();
 		}
 	}
 }

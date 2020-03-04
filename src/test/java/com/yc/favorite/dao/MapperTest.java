@@ -1,4 +1,4 @@
-package com.yc.favorite.dao;
+/*package com.yc.favorite.dao;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -60,3 +60,4 @@ public class MapperTest {
 		}
 
 }
+*/

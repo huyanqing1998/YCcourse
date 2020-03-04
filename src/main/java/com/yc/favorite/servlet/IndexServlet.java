@@ -1,15 +1,12 @@
-package com.yc.favorite.servlet;
+/*package com.yc.favorite.servlet;
 
 import java.io.IOException;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.ibatis.session.SqlSession;
-
 import com.yc.favorite.bean.Favorite;
 import com.yc.favorite.bean.Tag;
 import com.yc.favorite.dao.FavoriteMapper;
@@ -52,3 +49,4 @@ public class IndexServlet extends HttpServlet {
 	}
 
 }
+*/

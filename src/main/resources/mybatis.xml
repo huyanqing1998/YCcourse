@@ -1,24 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!-- <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
 	<settings>
-		<!-- 字段属性映射使用默认的驼峰命名方式 -->
+		字段属性映射使用默认的驼峰命名方式
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
-	<!-- 别名 -->
+	别名
 	<typeAliases>
 		<package name="com.yc.favorite.bean"/>
 	</typeAliases>
 
-	<!-- 数据环境配置 -->
+	数据环境配置
 	<environments default="test">
 		<environment id="development">
-			<!-- 设置事务管理 -->
+			设置事务管理
 			<transactionManager type="JDBC" />
-			<!-- 连接参数-->
+			连接参数
 			<dataSource type="POOLED">
 				<property name="driver" value="${driver}" />
 				<property name="url" value="${url}" />
@@ -50,12 +50,12 @@
 	
 	<mappers>
 		
-		<!-- 注册SQL映射文件 -->
-		<!-- 
+		注册SQL映射文件
+		
 		<mapper resource="com/yc/mybatis/dao/HallMapper.xml" />
 		<mapper resource="com/yc/mybatis/dao/CinemaMapper.xml" />
-		 -->
-		<!-- package 可以设置包扫描，自动的将该包下的映射文件注册进来 --> 
+		
+		package 可以设置包扫描，自动的将该包下的映射文件注册进来 
 		<package name="com.yc.favorite.dao"/>
 	</mappers>
-</configuration>
+</configuration> -->

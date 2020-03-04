@@ -1,4 +1,4 @@
-package com.yc.favorite.servlet;
+/*package com.yc.favorite.servlet;
 
 import java.io.IOException;
 import java.util.List;
@@ -48,3 +48,4 @@ public class AddFavoriteServlet extends HttpServlet {
 	}
 
 }
+*/
