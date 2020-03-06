@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.C76S3PlySpringBoot.dao.TagMapper">
+
+ <resultMap type="Tag" id="myColumnMapper">
+ 	<!-- 解决数据库字段与bean变量名不一致问题 -->
+ 	<result column="t_name" property="tName"/>
+ 	<collection property="favorites" column="t_name" fetchType="lazy"
+ 		select="selectFavoriteByTname"></collection>
+ </resultMap>
+
+  <select id="selectAll" resultMap="myColumnMapper">
+    select * from tag
+  </select>
+  
+  <select id="selectFavoriteByTname" resultType="Favorite">
+  	select * from favorite where f_tags like concat('%',#{tName},'%')
+  </select>
+</mapper>
