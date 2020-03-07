@@ -12,10 +12,10 @@ spring:
     password: a
     driver-class-name: com.mysql.jdbc.Driver
 #视图解析器：接收浏览器url，返回页面 
-  mvc:
-    view:
-      prefix: WEB-INF/page/
-      suffix: .jsp
+#  mvc:
+ #   view:
+  #    prefix: WEB-INF/page/
+   #   suffix: .jsp
 
 #mybatis
 mybatis:

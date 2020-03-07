@@ -1,8 +1,5 @@
-<%-- <%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE HTML>
-<html lang="en-US">
+<!DOCTYPE html>
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org">
 <head>
 
 <title>搜藏</title>
@@ -49,11 +46,11 @@
 								<td><a href="index.s?flag=2">未分类</a></td>
 							</tr>
 
-							<c:forEach items="${tList}" var="tag">
-							<tr>
-								<td><a href="index.s?tId=${tag.tId}">${tag.tName}</a></td>
+							<!-- <c:forEach items="${tList}" var="tag"> -->
+							<tr th:each="tag : ${tList}">
+								<td><a th:text="${tag.tName}" th:href="'index.s?tId='+${tag.tId}">标签名</a></td>
 							</tr>
-							</c:forEach>
+							<!-- </c:forEach> -->
 							
 							<tr>
 								<td><a style="font-weight: bold;" href="fav.do?op=toCloud">云图</a>
@@ -66,19 +63,19 @@
 					<!-- 右边fav内容 -->
 					<div class="content_links">
 					
-						<c:set var="showFlist" value="${empty fList ? showTag.favorites : fList }"></c:set>
+						<!-- <c:set var="showFlist" value="${empty fList ? showTag.favorites : fList }"></c:set> -->
 					
-						<c:forEach items="${showFlist }" var="fav">
-						<div style="padding: 6px 10px;">
+						<!-- <c:forEach items="${showFlist }" var="fav"> -->
+						<div th:each="fav:${showTag != null && showTag.favorites!=null ? showTag.favorites : fList}" style="padding: 6px 10px;">
 							<div>
-								<a href="http://${fav.fUrl }"
-									style="color: blue; font-size: 18px;" target="_blank">${fav.fLabel }</a>
+								<a th:text="${fav.fLabel }" th:href="'http://'+${fav.fUrl }"
+									style="color: blue; font-size: 18px;" target="_blank">网站名</a>
 							</div>
-							<div style="color: black; font-size: 16px;">${fav.fDesc }</div>
-							<div style="color: green; font-size: 14px;">
-								${fav.fUrl }</div>
+							<div th:text="${fav.fDesc }" style="color: black; font-size: 16px;">网站说明</div>
+							<div th:text="${fav.fUrl }" style="color: green; font-size: 14px;">网址
+								</div>
 						</div>
-						</c:forEach>
+						<!-- </c:forEach> -->
 					</div>
 				</td>
 			</tr>
@@ -86,4 +83,4 @@
 
 	</form>
 </body>
-</html> --%>
+</html>
