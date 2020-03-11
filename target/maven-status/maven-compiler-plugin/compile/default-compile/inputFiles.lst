@@ -1,6 +1,7 @@
 G:\YC74\200310_框架项目案例_T1L1\code\src\main\java\com\yc\blog\BlogAppcation.java
 G:\YC74\200310_框架项目案例_T1L1\code\src\main\java\com\yc\blog\dao\FlinkMapper.java
 G:\YC74\200310_框架项目案例_T1L1\code\src\main\java\com\yc\blog\bean\Flink.java
+G:\YC74\200310_框架项目案例_T1L1\code\src\main\java\com\yc\blog\web\IndexAction.java
 G:\YC74\200310_框架项目案例_T1L1\code\src\main\java\com\yc\blog\bean\UserExample.java
 G:\YC74\200310_框架项目案例_T1L1\code\src\main\java\com\yc\blog\bean\User.java
 G:\YC74\200310_框架项目案例_T1L1\code\src\main\java\com\yc\blog\bean\CategoryExample.java

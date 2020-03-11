@@ -18,7 +18,7 @@
 		<!-- 加了还报错是因为 eclipse 版本低了 -->
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 	</properties>
-	
+
 	<dependencies>
 
 		<dependency>
@@ -56,6 +56,14 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper-spring-boot-starter -->
+		<!-- 分页工具 -->
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper-spring-boot-starter</artifactId>
+			<version>1.2.13</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -64,7 +72,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			
+
 			<!-- MyBatis 反向工程插件 -->
 			<plugin>
 				<groupId>org.mybatis.generator</groupId>
