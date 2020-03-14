@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -95,26 +96,40 @@ public class IndexAction {
 	private String myUploadPath;
 	@ResponseBody
 	@PostMapping({"reg"})
-	public Result reg(@Valid User user,Errors errors,@RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
+	public Result reg(@Valid User user,Errors errors,@RequestParam("file") MultipartFile file,String repwd) throws IllegalStateException, IOException {
 		if(errors.hasFieldErrors()) {
 			//不符合注册要求，比如密码长度或短或长
-			return new Result(1,"用户注册失败！",errors.getFieldError());
+			return new Result(1,"用户注册失败！",errors.getFieldErrors());
 		}
 		file.transferTo(new File(myUploadPath + file.getOriginalFilename()));
 		try {
 			//让上传的头像的路径存入数据库
 			String head = "/" + file.getOriginalFilename();
 			user.setHead(head);
-			ubiz.reg(user);
+			ubiz.reg(user,repwd);
 			return new Result(0,"用户注册成功！");
 		} catch (BizException e) {
 			e.printStackTrace();
-			errors.rejectValue("name", "100",e.getMessage());
-			return new Result(1,"用户注册失败！",errors.getFieldError());
+			errors.rejectValue(e.getName(), e.getCode() + "",e.getMessage());
+			return new Result(e.getCode(),"用户注册失败！",errors.getFieldErrors());
 		}
 		
 	}
 	
-	
+	@PostMapping("login")
+	@ResponseBody
+	public Result login(@Valid User user,Errors errors,HttpSession session) {
+		if(errors.hasFieldErrors("account") || errors.hasFieldErrors("pwd")) {
+			return new Result(1,"请输入用户名和密码");
+		}
+		try {
+			User dbuser = ubiz.login(user);
+			session.setAttribute("loginedUser", dbuser);
+			return new Result(0,"登陆成功！",dbuser);
+		} catch (BizException e) {
+			e.printStackTrace();
+			return new Result(e.getCode(),e.getMessage());
+		}
+	}
 
 }
