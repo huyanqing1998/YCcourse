@@ -2,17 +2,30 @@ package com.yc.blog.bean;
 
 import java.util.Date;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 public class User {
     private Integer id;
-
+    
+    @NotEmpty
+    @Length(min=3,max=16,message="用户名长度必须为3~16位")
     private String name;
-
+    
+    @NotEmpty
+    @Length(min=4,max=16)
     private String account;
 
+    @NotEmpty
+    @Length(min=6,max=12)
     private String pwd;
 
     private String phone;
 
+    @NotEmpty
+    @Email
     private String email;
 
     private String head;

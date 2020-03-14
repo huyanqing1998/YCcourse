@@ -1,7 +1,7 @@
 #server.port=80
 
 #自定义的配置参数
-myUploadPath: E:/ba1/
+myUploadPath: G:/YC74/200310_框架项目案例_T1L1/img/
 
 #服务器端口：80
 server:

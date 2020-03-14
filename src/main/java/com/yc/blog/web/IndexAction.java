@@ -5,10 +5,12 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +23,8 @@ import com.github.pagehelper.PageHelper;
 import com.yc.blog.bean.Article;
 import com.yc.blog.bean.ArticleExample;
 import com.yc.blog.bean.User;
+import com.yc.blog.biz.BizException;
+import com.yc.blog.biz.UserBiz;
 import com.yc.blog.dao.ArticleMapper;
 import com.yc.blog.dao.CategoryMapper;
 import com.yc.blog.vo.Result;
@@ -33,6 +37,9 @@ public class IndexAction {
 	
 	@Resource
 	private CategoryMapper cm;
+	
+	@Resource
+	private UserBiz ubiz;
 	
 	@ModelAttribute
 	public void init(Model m) {
@@ -88,10 +95,24 @@ public class IndexAction {
 	private String myUploadPath;
 	@ResponseBody
 	@PostMapping({"reg"})
-	public Result reg(User user,@RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
-		System.out.println(user);
+	public Result reg(@Valid User user,Errors errors,@RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
+		if(errors.hasFieldErrors()) {
+			//不符合注册要求，比如密码长度或短或长
+			return new Result(1,"用户注册失败！",errors.getFieldError());
+		}
 		file.transferTo(new File(myUploadPath + file.getOriginalFilename()));
-		return new Result(0,"用户注册成功");
+		try {
+			//让上传的头像的路径存入数据库
+			String head = "/" + file.getOriginalFilename();
+			user.setHead(head);
+			ubiz.reg(user);
+			return new Result(0,"用户注册成功！");
+		} catch (BizException e) {
+			e.printStackTrace();
+			errors.rejectValue("name", "100",e.getMessage());
+			return new Result(1,"用户注册失败！",errors.getFieldError());
+		}
+		
 	}
 	
 	
