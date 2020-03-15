@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 import com.yc.blog.bean.Article;
 import com.yc.blog.bean.ArticleExample;
 import com.yc.blog.bean.ArticleExample.Criteria;
+import com.yc.blog.biz.MailService;
 import com.yc.blog.dao.ArticleMapper;
 import com.yc.blog.dao.UserMapper;
 
@@ -25,8 +26,11 @@ class BlogApplicationTests {
 	
 	@Resource
 	private ArticleMapper am;
+	
+	@Resource
+	private MailService ms;
 
-	@Test
+	//@Test
 	void contextLoads() {
 		Assert.isTrue(um.selectByExample(null).size() > 0, "结果集数量不正确!");
 		
@@ -50,6 +54,11 @@ class BlogApplicationTests {
 		
 		// 查询文章:  label 带 s   分类 category = 3 的记录
 		
+	}
+	
+	@Test
+	public void test2() {
+		ms.sendSimpleMail("584945164@qq.com", "测试邮件", "申请; 请求; 申请书; 申请表; 应用，运用; 涂抹; 敷用; 施用");
 	}
 	
 	

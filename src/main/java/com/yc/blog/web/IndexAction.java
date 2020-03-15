@@ -3,6 +3,7 @@ package com.yc.blog.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.Page;
@@ -55,7 +57,9 @@ public class IndexAction {
 	public String index(@RequestParam(defaultValue = "1") Integer page,Model m) {
 		Page<Article> pg = PageHelper.startPage(page, 5);
 		//注意：PageHelper.startPage(page, 5)必须在查询代码的前一行
-		am.selectByExampleWithBLOBs(null);
+		ArticleExample ae = new ArticleExample();
+		ae.setOrderByClause("createtime desc");
+		am.selectByExampleWithBLOBs(ae);
 		m.addAttribute("alist",pg);
 		return "index";
 	}
@@ -130,6 +134,52 @@ public class IndexAction {
 			e.printStackTrace();
 			return new Result(e.getCode(),e.getMessage());
 		}
+	}
+	
+	@GetMapping("editArticle")
+	public String toEditArticle() {
+		return "article_edit";
+	}
+	
+	@PostMapping("saveArticle")
+	public String saveArticle(Article a,@SessionAttribute("loginedUser") User user) {
+		a.setAuthor(user.getName());
+		a.setCreatetime(new Date());
+		am.insert(a);
+		
+		return "redirect:article?id=" + a.getId();
+	}
+	
+	@PostMapping("sendVcode")
+	@ResponseBody
+	public Result sendVcode(String account,HttpSession session) {
+		String vcode;
+		try {
+			vcode = ubiz.forget(account);
+			session.setAttribute("vcode", vcode);
+			return new Result(0,"验证码发送成功！");
+		} catch (BizException e) {
+			e.printStackTrace();
+			return new Result(1,e.getMessage());
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			return new Result(1,"邮件发送失败，请联系客服！");
+		}		
+	}
+	
+	@PostMapping("changePwd")
+	@ResponseBody
+	public Result changePwd(User user,String repwd,String vcode,@SessionAttribute("vcode") String sessionVcode) {
+		if(sessionVcode.contentEquals(vcode) == false) {
+			return new Result(1,"验证码输入错误！");
+		} else {
+			return new Result(0,"验证码输入正确！");
+		}
+	}
+	
+	@GetMapping("toforget")
+	public String toFofget() {
+		return "forget";
 	}
 
 }
