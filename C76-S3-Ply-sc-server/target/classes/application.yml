@@ -10,3 +10,31 @@ eureka:
    client:
       registerWithEureka: false
       fetchRegistry: false
+      serviceUrl:
+        # 注册服务器的地址
+        defaultZone: http://127.0.0.1:8100/eureka,
+                     http://127.0.0.1:8200/eureka
+        
+---
+spring: 
+  profiles: cs1
+server: 
+  port: 8100
+eureka:
+   client:
+    serviceUrl:
+      # 注册服务器的地址
+      defaultZone: http://127.0.0.1:8000/eureka, 
+                   http://127.0.0.1:8200/eureka
+                   
+---
+spring: 
+  profiles: cs2
+server: 
+  port: 8200
+eureka:
+   client:
+    serviceUrl:
+      # 注册服务器的地址
+      defaultZone: http://127.0.0.1:8000/eureka,
+                   http://127.0.0.1:8100/eureka
