@@ -16,3 +16,57 @@ eureka:
 feign: 
   hystrix: 
     enabled: true
+    
+
+# zuul
+zuul: 
+  # 配置忽略行为，忽略所有的子系统的默认路由
+  ignoredServices: '*'
+  
+  routes: 
+    #定义路有名称 ，zuul会默认路由子系统，格式：zuul服务器地址（这里是index的80端口）/服务名/路径
+    
+    #1.简单路由，响应重定向（可访问服务器内/外部资源）
+    #http://127.0.0.1/baidu/index.html
+    test1: 
+      path: /baidu/**
+      url: http://www.baidu.com
+      
+    #2.跳转路由，请求转发（仅访问服务器内部资源）
+    #注意：由于/user/way在IndexAction.java内的方法，方法内指定了服务名，因此可以正常跳转
+    #http://127.0.0.1/zuser/way
+    test2: 
+      path: /zuser/**
+      url: forward:/user
+      
+    #3.1Ribbon路由
+    #http://127.0.0.1/ruser/user/way
+    test3: 
+      path: /ruser/**
+      serviceId: sc-user
+      #由于zuul有默认的敏感头设定，所以要忽略默认的的敏感头设置，必须将敏感头设置为空
+      sensitiveHeaders: 
+      
+    #3.2以服务名作为路由名称
+    #http://127.0.0.1/rruser/user/way
+    sc-user: 
+      path: /rruser/**
+      
+      
+    #4.默认路由
+    #如果是不存在或者被忽略的访问路径，将会调用这个，相当于switch内的default
+    legacy: 
+      path: /**
+      url: http://www.163.com
+    
+    #去敏感头
+    test4: 
+      # /suser/user/way -> /sc-user/user/way
+      path: /suser/**
+      serviceId: sc-user
+      #不是所有的头域字段都可以过滤
+      sensitiveHeaders: cookie,set-cookie  
+      
+      
+      
+      
