@@ -2,6 +2,8 @@ server:
    port: 80
 
 spring:
+  application: 
+    name: ebuy-index
 #连接数据库配置  
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/c76-s3-phooy-ebuy

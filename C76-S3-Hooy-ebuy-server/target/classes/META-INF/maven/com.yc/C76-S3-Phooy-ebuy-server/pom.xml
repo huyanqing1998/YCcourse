@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.yc</groupId>
-		<artifactId>C76-S3-Phooy-ebuy-parent2</artifactId>
+		<artifactId>C76-S3-Phooy-ebuy-parent1</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>C76-S3-Phooy-ebuy-server</artifactId>
