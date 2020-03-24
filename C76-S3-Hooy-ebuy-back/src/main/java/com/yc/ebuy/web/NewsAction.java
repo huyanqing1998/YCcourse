@@ -17,16 +17,17 @@ import com.yc.ebuy.dao.EasybuyNewsMapper;
 import com.yc.ebuy.dao.EasybuyProductCategoryMapper;
 
 @RestController
-public class ProductCategoryAction {
+public class NewsAction {
 	
 	@Resource
-	private EasybuyProductCategoryMapper pcm;
+	private EasybuyNewsMapper nm;	
 	
-	@GetMapping("getPc")
-	public List<EasybuyProductCategory> getPc(){
-		EasybuyProductCategoryExample pce = new EasybuyProductCategoryExample();
-		pce.createCriteria().andTypeEqualTo(1);
-		List<EasybuyProductCategory> list = pcm.selectByExample(pce);
+	@GetMapping("getNews")
+	public List<EasybuyNews> getNews(){
+		EasybuyNewsExample ne = new EasybuyNewsExample();
+		PageHelper.startPage(1, 5);
+		ne.setOrderByClause("id desc ");
+		List<EasybuyNews> list = nm.selectByExample(ne);
 		return list;
 	}
 

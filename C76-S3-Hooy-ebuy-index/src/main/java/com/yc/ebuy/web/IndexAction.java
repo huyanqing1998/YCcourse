@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class IndexAction {
 	
 	@Resource
-	private IProductCategoryAction pca;
+	private IEbuyBackAction pca;
 
 
 	@GetMapping({ "/", "index", "index.html" })
@@ -19,6 +19,7 @@ public class IndexAction {
 		 * 通过远程服务调用方式获取分类信息
 		 */
 		mav.addObject("pclist",pca.getPc());
+		mav.addObject("newslist",pca.getNews());
 		mav.setViewName("index");
 		return mav;
 	}
