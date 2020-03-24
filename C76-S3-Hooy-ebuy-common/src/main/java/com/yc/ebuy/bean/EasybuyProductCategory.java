@@ -50,4 +50,15 @@ public class EasybuyProductCategory {
     public void setIconclass(String iconclass) {
         this.iconclass = iconclass == null ? null : iconclass.trim();
     }
+
+	public EasybuyProductCategory(Integer id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+    
+    /*
+     * 需求生成
+     */
+    
 }

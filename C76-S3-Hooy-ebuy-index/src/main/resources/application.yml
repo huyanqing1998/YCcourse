@@ -19,6 +19,11 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
+# 开启声明式熔断降级开关
+feign:
+  hystrix:
+    enabled: true
+
 #测试类配置  
 logging:
   level:

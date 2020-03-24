@@ -5,7 +5,7 @@ spring:
    application:
       name: ebuy-order
    datasource:
-     url: jdbc:mysql://127.0.0.1/C76-S3-Ply-ebuy?serverTimezone=UTC&CharacterEncoding=UTF-8&useSSL=false
+     url: jdbc:mysql://127.0.0.1:3306/c76-s3-phooy-ebuy
      username: root
      password: a
      driver-class-name: com.mysql.jdbc.Driver
