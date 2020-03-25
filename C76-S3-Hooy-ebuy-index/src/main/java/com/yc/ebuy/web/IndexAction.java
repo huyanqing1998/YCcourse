@@ -23,7 +23,8 @@ public class IndexAction {
 	UserBiz ubiz;
 	
 	/* 加载动态数据的方法一
-	 * @ModelAttribute public void init() {
+	 * @ModelAttribute
+	 * public void init() {
 	 * 
 	 * }
 	 */

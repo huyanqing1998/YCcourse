@@ -1,5 +1,5 @@
 server:
-   port: 80
+   port: 8000
 
 spring:
   application: 
@@ -32,3 +32,10 @@ logging:
         ebuy:
           dao: debug
           web: warn
+          
+---
+spring:
+  profiles: index-8003
+server:
+  port: 8003
+  

@@ -1,7 +1,14 @@
 package com.yc.ebuy.bean;
 
-public class EasybuyUser {
-    private Integer id;
+import java.io.Serializable;
+
+public class EasybuyUser implements Serializable{
+    /**
+	 * 转存redis数据库，需要序列号对象
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer id;
 
     private String loginname;
 
