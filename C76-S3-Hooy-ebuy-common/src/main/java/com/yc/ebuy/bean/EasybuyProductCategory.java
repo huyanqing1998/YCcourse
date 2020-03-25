@@ -56,6 +56,10 @@ public class EasybuyProductCategory {
 		this.id = id;
 		this.name = name;
 	}
+
+	public EasybuyProductCategory() {
+		super();
+	}
     
     /*
      * 需求生成
