@@ -20,9 +20,18 @@ zuul:
          path: /**
          #过滤敏感头
          sensitiveHeaders: 
+      ebuy-back:
+         path: /back/**
+         #过滤敏感头
+         sensitiveHeaders: 
+      ebuy-order:
+         path: /order/**
+         #过滤敏感头
+         sensitiveHeaders: 
+      
 
 
 #hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
-#ribbon:
-#  ConnectTimeout: 3000
-#  ReadTimeout: 60000
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 60000
