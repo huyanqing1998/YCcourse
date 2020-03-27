@@ -36,6 +36,7 @@ public class IndexAction {
 		 * 通过远程服务调用方式获取分类信息
 		 */
 		mav.addObject("pclist",pca.getPc());
+		mav.addObject("hplist",pca.getHotP());
 		mav.addObject("newslist",pca.getNews());
 		mav.setViewName("Index");
 		return mav;

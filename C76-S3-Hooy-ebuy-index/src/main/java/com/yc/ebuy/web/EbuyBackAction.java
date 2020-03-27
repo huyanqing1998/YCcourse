@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.yc.ebuy.bean.EasybuyNews;
+import com.yc.ebuy.bean.EasybuyProduct;
 import com.yc.ebuy.bean.EasybuyProductCategory;
 
 @Component
@@ -29,7 +30,12 @@ public class EbuyBackAction implements IEbuyBackAction{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
 
+	@Override
+	public List<EasybuyProduct> getHotP() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 }
