@@ -13,8 +13,9 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @EnableFeignClients
 //Spring会话共享注解
 @EnableRedisHttpSession
-public class EbuyBackAppcation {
+public class EbuyBackAppcation{
 	public static void main(String[] args) {
 		SpringApplication.run(EbuyBackAppcation.class, args);
 	}
+	
 }

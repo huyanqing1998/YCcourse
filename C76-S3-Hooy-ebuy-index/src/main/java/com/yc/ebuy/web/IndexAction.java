@@ -64,5 +64,21 @@ public class IndexAction {
 		return mav;
 		
 	}
+	
+	@GetMapping("product")
+	public ModelAndView product(int id, ModelAndView mav) {
+		// 要展示的商品
+		mav.addObject("product", pca.product(id));
+		// 商品分类
+		mav.addObject("pclist", pca.getPc());
+		mav.setViewName("product");
+		return mav;
+	}
+	
+	@GetMapping("addCart")
+	public ModelAndView addCart(ModelAndView mav) {
+		mav.setViewName("BuyCar");
+		return mav;
+	}
 
 }
