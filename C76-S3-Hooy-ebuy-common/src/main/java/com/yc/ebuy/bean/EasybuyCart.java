@@ -12,8 +12,20 @@ public class EasybuyCart {
     private Integer count;
 
     private Date createtime;
+    
+    private EasybuyProduct product;
+    
+    
 
-    public Integer getId() {
+    public EasybuyProduct getProduct() {
+		return product;
+	}
+
+	public void setProduct(EasybuyProduct product) {
+		this.product = product;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -52,4 +64,10 @@ public class EasybuyCart {
     public void setCreatetime(Date createtime) {
         this.createtime = createtime;
     }
+
+	@Override
+	public String toString() {
+		return "EasybuyCart [id=" + id + ", uid=" + uid + ", pid=" + pid + ", count=" + count + ", createtime="
+				+ createtime + ", product=" + product + "]";
+	}
 }

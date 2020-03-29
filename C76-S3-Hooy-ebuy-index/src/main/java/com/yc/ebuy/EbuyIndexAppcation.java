@@ -7,7 +7,7 @@ import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.yc.ebuy.web.LoginInterceptor;
 
@@ -20,18 +20,24 @@ import com.yc.ebuy.web.LoginInterceptor;
 @EnableCircuitBreaker
 //spring会话共享注解
 @EnableRedisHttpSession
-public class EbuyIndexAppcation {
+public class EbuyIndexAppcation implements WebMvcConfigurer {
 	public static void main(String[] args) {
 		SpringApplication.run(EbuyIndexAppcation.class, args);
 	}
-
+	
+	
+	/**
+	 * SpringBoot定义拦截器
+	 * 1. 如果没有引入资源, 可以不用加组件注解
+	 * 2. 简单配置实现 WebMvcConfigurer , 高级配置继承 WebMvcConfigurationSupport
+	 * 3. SpringBoot 启动类可以直接继承或实现
+	 */
 	/*
 	 * 拦截器配置 addPathPatterns拦截 excludePathPatterns不拦截(排除)
-	 * 
-	 * @Override protected void addInterceptors(InterceptorRegistry registry) {
-	 * super.addInterceptors(registry); registry.addInterceptor(new
-	 * LoginInterceptor()) .addPathPatterns("addCart") .excludePathPatterns("/**");
-	 * }
 	 */
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/addCart");
+	}
 
 }
